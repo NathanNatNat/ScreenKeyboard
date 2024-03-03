@@ -58,12 +58,4 @@
       <Filter>res</Filter>
     </Image>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="default_english.json">
-      <Filter>res</Filter>
-    </None>
-    <None Include="old_english_orthography.json">
-      <Filter>res</Filter>
-    </None>
-  </ItemGroup>
 </Project>

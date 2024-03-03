@@ -24,8 +24,5 @@
 #define IDI_SCREENKEYBOARD              201
 #define IDI_SCREENKEYBOARD_SMALL        202
 
-#define IDR_JSON_DEFAULT_ENGLISH        301
-#define IDR_JSON_OLD_ENGLISH            302
-
 
 

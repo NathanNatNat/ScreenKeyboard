@@ -168,10 +168,6 @@
     <Image Include="ScreenKeyboard.ico" />
     <Image Include="ScreenKeyboardSmall.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="default_english.json" />
-    <None Include="old_english_orthography.json" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

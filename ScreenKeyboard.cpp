@@ -159,10 +159,6 @@ int APIENTRY wWinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPWSTR lpCmdLine
 {
     instance=hInst;  
 
-    configs.reserve(2);
-    TryLoadEmbeddedConfigString(IDR_JSON_DEFAULT_ENGLISH, RESTYPE_JSON_FILE);
-    TryLoadEmbeddedConfigString(IDR_JSON_OLD_ENGLISH, RESTYPE_JSON_FILE);
-
     ReadUserConfigFiles();
 
     InitCommonControls();

@@ -21,6 +21,7 @@
 
 #include <string>
 #include <sstream>
+#include <iostream>
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
@@ -131,28 +132,35 @@ bool Keyboard::CreateComboBox()
     return true;
 }
 
-void Keyboard::SendInputWChar(wchar_t wchar)
+void Keyboard::SendInputWChar(std::wstring str)
 {
-    INPUT input[2];
-    input[0].type = INPUT_KEYBOARD;
-    input[0].ki.wVk = 0;
-    input[0].ki.wScan = wchar;
-    input[0].ki.time = 0;
-    input[0].ki.dwFlags = KEYEVENTF_UNICODE;
-    input[0].ki.dwExtraInfo = 0;// GetMessageExtraInfo();
+    if (OpenClipboard(nullptr))
+    {
+        EmptyClipboard();
 
-    input[1].type = INPUT_KEYBOARD;
-    input[1].ki.wVk = 0;
-    input[1].ki.wScan = wchar;
-    input[1].ki.time = 0;
-    input[1].ki.dwFlags = KEYEVENTF_UNICODE | KEYEVENTF_KEYUP;
-    input[1].ki.dwExtraInfo = NULL;
+        // Allocate global memory to hold the text
+        HGLOBAL hClipboardData = GlobalAlloc(GMEM_DDESHARE, (str.length() + 1) * sizeof(wchar_t));
+        if (hClipboardData != nullptr) {
+            // Lock the global memory and copy the text
+            wchar_t *pClipboardData = static_cast<wchar_t *>(GlobalLock(hClipboardData));
+            if (pClipboardData != nullptr) {
+                wcscpy_s(pClipboardData, str.length() + 1, str.c_str());
+                GlobalUnlock(hClipboardData);
 
-    SendInput(2, input, sizeof(INPUT));
+                // Set the clipboard data
+                SetClipboardData(CF_UNICODETEXT, hClipboardData);
+
+                // Simulate a paste action (Ctrl+V)
+                keybd_event(VK_CONTROL, 0, 0, 0); // Press Ctrl key
+                keybd_event('V', 0, 0, 0);         // Press V key
+                keybd_event('V', 0, KEYEVENTF_KEYUP, 0); // Release V key
+                keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, 0); // Release Ctrl key
+            }
+        }
+
+        CloseClipboard();
+    }
 }
-
-
-
 
 void Keyboard::ButtonClicked(int idx, HWND button)
 {
@@ -180,12 +188,7 @@ void Keyboard::ButtonClicked(int idx, HWND button)
     
 
     wstring send_str = text_iter->second;
-
-    for (size_t i = 0; i < send_str.length(); ++i)
-    {
-        wchar_t wchar = send_str[i];
-        SendInputWChar(wchar);
-    }
+    SendInputWChar(send_str);
 }
 
 void Keyboard::AddButton(int x, int y, int idx)

@@ -41,7 +41,7 @@ private:
     static void InitButtons();
     static void AddButton(int x, int y, int idx);
     static void DestroyButtons();
-    static void SendInputWChar(wchar_t wchar);
+    static void SendInputWChar(std::wstring str);
     static void ResizeKeyboard(RECT *suggested_rect = 0);
 
     struct DialogData

@@ -1,0 +1,12 @@
+{
+    "display_name": "MathsWatch",
+    "button_width": 100,
+    "button_height": 40,
+    "button_margin": 6,
+    "button_columns": 6,
+    "buttons": ["\\times", "\\div", "\\degree", "\\pi", "\\ge", "\\le", "\\cap", "\\cup",
+                "\\frac{}{}", "^{ }", "^{3}", "\\sqrt{ }", "\\sqrt[]{}", "\\approx", "\\angle",
+                "\\sin(", "\\cos(", "\\tan(", "", "", "","","","",
+                
+                "²", "³", "×", "÷", "π", "½", "⅓", "¼", "⅕", "¾", "≤", "≥", "√", "˚", "±"]
+  }
